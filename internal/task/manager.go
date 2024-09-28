@@ -26,6 +26,23 @@ func (tm *TaskManager) AddTask(name string) {
 // List not completed tasks
 func (tm *TaskManager) ListTask(showAll bool) {
 
+	if len(tm.Tasks) == 0 {
+		fmt.Println(`There are no tasks to show.
+Add: Adds a new task to the end of list.
+	add <string:content>
+
+List: List all tasks.
+	list
+
+Remove: Removes a task by id [default value: -1]
+	remove <int:id>
+
+Complete: Completes a task by id
+	complete <int:id>
+		`)
+		os.Exit(1)
+	}
+
 	w := tabwriter.NewWriter(os.Stdout, 0, 8, 1, ' ', 0)
 	fmt.Fprintln(w, "ID\tContent\tCompleted\tDate Created")
 

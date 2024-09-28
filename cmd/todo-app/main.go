@@ -51,7 +51,7 @@ Complete: Completes a task by id
 
 	case "list":
 		showAll := false
-		if len(os.Args) > 2 && os.Args[2] == "-a"{
+		if len(os.Args) > 2 && os.Args[2] == "-a" {
 			showAll = true
 		}
 		taskManager.ListTask(showAll)
