@@ -50,11 +50,11 @@ Complete: Completes a task by id
 		taskManager.AddTask(os.Args[2])
 
 	case "list":
-		if os.Args[2] == "-a" {
-			taskManager.ListAllTask()
+		showAll := false
+		if len(os.Args) > 2 && os.Args[2] == "-a"{
+			showAll = true
 		}
-
-		taskManager.ListTask()
+		taskManager.ListTask(showAll)
 
 	case "remove":
 		if len(os.Args) < 3 {

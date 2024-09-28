@@ -20,19 +20,23 @@ func (tm *TaskManager) AddTask(name string) {
 }
 
 // List not completed tasks
-func (tm *TaskManager) ListTask() {
-	for _, task := range tm.Tasks {
-		if task.Completed {
-			continue
+func (tm *TaskManager) ListTask(showAll bool) {
+
+	if showAll {
+		for _, task := range tm.Tasks {
+			fmt.Printf("%d\t%s\t%t\t%s\n", task.ID, task.Content, task.Completed, task.DateCreated)
 		}
-		fmt.Printf("%d\t%s\t%t\t%s\n", task.ID, task.Content, task.Completed, task.DateCreated)
+	} else {
+		for _, task := range tm.Tasks {
+			if task.Completed {
+				continue
+			}
+			fmt.Printf("%d\t%s\t%t\t%s\n", task.ID, task.Content, task.Completed, task.DateCreated)
+		}
 	}
 }
 
 func (tm *TaskManager) ListAllTask() {
-	for _, task := range tm.Tasks {
-		fmt.Printf("%d\t%s\t%t\t%s\n", task.ID, task.Content, task.Completed, task.DateCreated)
-	}
 }
 
 func (tm *TaskManager) RemoveTask(id int) {
