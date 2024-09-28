@@ -1,6 +1,10 @@
 package task
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+	"text/tabwriter"
+)
 
 type TaskManager struct {
 	Tasks []Task
@@ -22,17 +26,22 @@ func (tm *TaskManager) AddTask(name string) {
 // List not completed tasks
 func (tm *TaskManager) ListTask(showAll bool) {
 
+	w := tabwriter.NewWriter(os.Stdout, 0, 8, 1, ' ', 0)
+	fmt.Fprintln(w, "ID\tContent\tCompleted\tDate Created")
+
 	if showAll {
 		for _, task := range tm.Tasks {
-			fmt.Printf("%d\t%s\t%t\t%s\n", task.ID, task.Content, task.Completed, task.DateCreated)
+			fmt.Fprintf(w, "%-5d\t%-20s\t%-10t\t%s\n", task.ID, task.Content, task.Completed, task.DateCreated)
 		}
+		w.Flush()
 	} else {
 		for _, task := range tm.Tasks {
 			if task.Completed {
 				continue
 			}
-			fmt.Printf("%d\t%s\t%t\t%s\n", task.ID, task.Content, task.Completed, task.DateCreated)
+			fmt.Fprintf(w, "%-5d\t%-20s\t%-10t\t%s\n", task.ID, task.Content, task.Completed, task.DateCreated)
 		}
+		w.Flush()
 	}
 }
 
